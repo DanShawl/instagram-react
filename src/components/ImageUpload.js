@@ -1,4 +1,6 @@
+import './ImageUpload.css';
 import { getDownloadURL, ref, uploadBytesResumable } from '@firebase/storage';
+
 import { Button } from '@material-ui/core';
 import React, { useState } from 'react';
 import { storage, db } from '../firebase';
@@ -71,16 +73,38 @@ const ImageUpload = ({ username }) => {
     // const uploadTask = ref(storage, `image/${image.name}`).put(image);
   };
   return (
-    <div>
-      <progress value={progress} max="100" />
-      <input
-        type="text"
-        placeholder="Enter a caption"
-        value={caption}
-        onChange={(e) => setCaption(e.target.value)}
-      />
-      <input type="file" onChange={handleChange} />
-      <Button onClick={handleUpload}>Upload</Button>
+    <div className="imageupload">
+      <div className="imageupload__info">
+        <progress value={progress} max="100" />
+        <input
+          type="text"
+          placeholder="Enter a caption"
+          value={caption}
+          onChange={(e) => setCaption(e.target.value)}
+        />
+        <input type="file" onChange={handleChange} />
+      </div>
+      <button className="upload__btn" onClick={handleUpload}>
+        Upload
+      </button>
+      {/* <Button
+        className="upload__btn"
+        onClick={handleUpload}
+        variant="contained"
+        color="primary"
+        disableElevation
+      >
+        Upload
+      </Button> */}
+
+      {/* <Button
+        variant="contained"
+        color="default"
+        className={classes.button}
+        startIcon={<CloudUploadIcon />}
+      >
+        Upload
+      </Button> */}
       {/* progress bar */}
       {/* caption */}
       {/* file picker */}

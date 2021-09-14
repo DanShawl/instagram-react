@@ -113,7 +113,7 @@ function App() {
       {user?.displayName ? (
         <ImageUpload username={user.displayName} />
       ) : (
-        <h3>Login to upload</h3>
+        <h4 className="loginNotification">Login to upload</h4>
       )}
       <Modal
         open={open}
@@ -199,15 +199,23 @@ function App() {
           src="https://instagram.com/static/images/web/mobile_nav_type_logo.png/735145cfe0a4.png"
           alt=""
         />
+        {user ? (
+          <Button onClick={() => signOut(auth)}>Logout</Button>
+        ) : (
+          <div className="app__loginContainer">
+            <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
+            <Button onClick={() => setOpen(true)}>Sign Up</Button>
+          </div>
+        )}
       </div>
-      {user ? (
+      {/* {user ? (
         <Button onClick={() => signOut(auth)}>Logout</Button>
       ) : (
         <div className="app__loginContainer">
           <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
           <Button onClick={() => setOpen(true)}>Sign Up</Button>
         </div>
-      )}
+      )} */}
       {/* Rendering a list of posts */}
       {posts.map(({ id, post }) => {
         return (
