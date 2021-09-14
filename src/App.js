@@ -11,14 +11,22 @@ import {
   signOut,
   signInWithEmailAndPassword,
 } from 'firebase/auth';
-import { collection, onSnapshot } from 'firebase/firestore';
+import {
+  collection,
+  onSnapshot,
+  orderBy,
+  query,
+  getDocs,
+} from 'firebase/firestore';
 import { db, auth } from './firebase';
+import ImageUpload from './components/ImageUpload';
 
 function getModalStyle() {
   const top = 50;
   const left = 50;
-
   return {
+    // bottom: '0px',
+    // left: '0px',
     top: `${top}%`,
     left: `${left}%`,
     transform: `translate(-${top}%, -${left}%)`,
@@ -28,9 +36,11 @@ function getModalStyle() {
 const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
-    width: 300,
+    // height: '100vh',
+    width: 200,
     backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
+    border: '1px solid #cecece',
+    borderRadius: '2px',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
@@ -67,9 +77,14 @@ function App() {
 
   // Storing the array of posts from db to the posts state
   useEffect(() => {
-    onSnapshot(collection(db, 'posts'), (snapshot) => {
-      setPosts(snapshot.docs.map((doc) => ({ id: doc.id, post: doc.data() })));
-    });
+    onSnapshot(
+      query(collection(db, 'posts'), orderBy('timestamp', 'desc')),
+      (snapshot) => {
+        setPosts(
+          snapshot.docs.map((doc) => ({ id: doc.id, post: doc.data() }))
+        );
+      }
+    );
   }, []);
 
   // Function handeling user creation
@@ -95,6 +110,11 @@ function App() {
   };
   return (
     <div className="App">
+      {user?.displayName ? (
+        <ImageUpload username={user.displayName} />
+      ) : (
+        <h3>Login to upload</h3>
+      )}
       <Modal
         open={open}
         onClose={() => setOpen(false)}
