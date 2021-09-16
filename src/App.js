@@ -4,6 +4,8 @@ import Post from './components/Post';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Button, Input, InputLabel, TextField } from '@material-ui/core';
+import InstagramEmbed from 'react-instagram-embed';
+
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
@@ -208,25 +210,34 @@ function App() {
           </div>
         )}
       </div>
-      {/* {user ? (
-        <Button onClick={() => signOut(auth)}>Logout</Button>
-      ) : (
-        <div className="app__loginContainer">
-          <Button onClick={() => setOpenSignIn(true)}>Sign In</Button>
-          <Button onClick={() => setOpen(true)}>Sign Up</Button>
-        </div>
-      )} */}
       {/* Rendering a list of posts */}
-      {posts.map(({ id, post }) => {
-        return (
-          <Post
-            key={id}
-            username={post.username}
-            caption={post.caption}
-            imageUrl={post.imageUrl}
-          />
-        );
-      })}
+      <div className="app__posts">
+        {posts.map(({ id, post }) => {
+          return (
+            <Post
+              key={id}
+              postId={id}
+              username={post.username}
+              caption={post.caption}
+              imageUrl={post.imageUrl}
+            />
+          );
+        })}
+      </div>
+
+      {/* <InstagramEmbed
+        url="https://www.instagram.com/p/CT2ba-Dg6Tw/?utm_medium=copy_link"
+        clientAccessToken="123|456"
+        maxWidth={320}
+        hideCaption={false}
+        containerTagName="div"
+        protocol=""
+        injectScript
+        onLoading={() => {}}
+        onSuccess={() => {}}
+        onAfterRender={() => {}}
+        onFailure={() => {}}
+      /> */}
     </div>
   );
 }
