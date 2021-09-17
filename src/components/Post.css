@@ -25,3 +25,34 @@
   font-weight: normal;
   padding: 15px 10px;
 }
+
+.post__commentBox {
+  display: flex;
+}
+
+.post__input {
+  /* take up as much room as possible */
+  flex: 1;
+  border: none;
+  padding: 10px;
+  border-top: 1px solid lightgray;
+}
+
+.post__button {
+  /* take up as little room as possible */
+  flex: 0;
+  padding: 0 10px;
+  border: none;
+  border-top: 1px solid lightgray;
+  cursor: pointer;
+  color: #6082a3;
+  background-color: white;
+}
+
+.post__button:hover {
+  color: lightgray;
+}
+
+.post__comments {
+  padding: 10px;
+}

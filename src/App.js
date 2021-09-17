@@ -216,6 +216,7 @@ function App() {
           return (
             <Post
               key={id}
+              user={user}
               postId={id}
               username={post.username}
               caption={post.caption}
