@@ -5,6 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import { Button, Input, InputLabel, TextField } from '@material-ui/core';
 import InstagramEmbed from 'react-instagram-embed';
+import AddIcon from '@material-ui/icons/Add';
 
 import {
   createUserWithEmailAndPassword,
@@ -39,10 +40,11 @@ const useStyles = makeStyles((theme) => ({
   paper: {
     position: 'absolute',
     // height: '100vh',
-    width: 200,
+    width: 300,
+    maxWidth: 300,
     backgroundColor: theme.palette.background.paper,
     border: '1px solid #cecece',
-    borderRadius: '2px',
+    // borderRadius: '2px',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
   },
@@ -51,8 +53,9 @@ const useStyles = makeStyles((theme) => ({
 function App() {
   const classes = useStyles();
   const [modalStyle] = useState(getModalStyle);
-  const [openSignIn, setOpenSignIn] = useState(false);
   const [posts, setPosts] = useState([]);
+  const [openSignIn, setOpenSignIn] = useState(false);
+  const [openUpload, setOpenUpload] = useState(false);
   const [open, setOpen] = useState(false);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -113,10 +116,33 @@ function App() {
   return (
     <div className="App">
       {user?.displayName ? (
-        <ImageUpload username={user.displayName} />
+        <AddIcon className="post__icon" onClick={() => setOpenUpload(true)} />
       ) : (
         <h4 className="loginNotification">Login to upload</h4>
       )}
+      {user?.displayName ? (
+        <Modal
+          open={openUpload}
+          onClose={() => setOpenUpload(false)}
+          aria-labelledby="simple-modal-title"
+          aria-describedby="simple-modal-description"
+        >
+          <div style={modalStyle} className={classes.paper}>
+            <ImageUpload
+              username={user.displayName}
+              setOpenUpload={setOpenUpload}
+            />
+          </div>
+        </Modal>
+      ) : (
+        <h4 className="loginNotification">Login to upload</h4>
+      )}
+
+      {/* {user?.displayName ? (
+        <ImageUpload username={user.displayName} />
+      ) : (
+        <h4 className="loginNotification">Login to upload</h4>
+      )} */}
       <Modal
         open={open}
         onClose={() => setOpen(false)}

@@ -15,7 +15,7 @@ import {
   FieldValue,
 } from 'firebase/firestore';
 
-const ImageUpload = ({ username }) => {
+const ImageUpload = ({ username, setOpenUpload }) => {
   const [image, setImage] = useState(null);
   // const [url, setUrl] = useState('')
   const [progress, setProgress] = useState(0);
@@ -76,6 +76,7 @@ const ImageUpload = ({ username }) => {
       }
     );
 
+    setOpenUpload(false);
     // const uploadTask = ref(storage, `image/${image.name}`).put(image);
   };
   return (

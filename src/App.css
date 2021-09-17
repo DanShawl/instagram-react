@@ -49,3 +49,25 @@
   align-items: center;
   margin-bottom: 7em;
 }
+
+.post__icon {
+  background-color: #3783e7;
+  color: white;
+  padding: 0.35em;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 0.5em;
+  right: 0.5em;
+  cursor: pointer;
+}
+
+.post__icon:hover {
+  background-color: #679ce2;
+}
+
+@media screen and (min-width: 768px) {
+  .post__icon {
+    bottom: 1em;
+    right: 1em;
+  }
+}
